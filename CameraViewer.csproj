@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>RTSP Player</AssemblyName>
+    <Product>RTSP Player</Product>
+    <ApplicationIcon>assets\rtsp-player.ico</ApplicationIcon>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="assets\rtsp-player.ico" />
+    <PackageReference Include="LibVLCSharp" Version="3.9.3" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.21" />
+  </ItemGroup>
+  <Target Name="CopyVlcRuntimeToPublish" AfterTargets="Publish" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+    <ItemGroup>
+      <_VlcRuntimeFiles Include="$(MSBuildProjectDirectory)\$(OutputPath)libvlc\win-x64\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_VlcRuntimeFiles)"
+          DestinationFiles="@(_VlcRuntimeFiles->'$(PublishDir)libvlc\win-x64\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+</Project>

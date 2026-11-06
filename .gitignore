@@ -1,0 +1,12 @@
+bin/
+obj/
+build-output/
+publish/
+.vs/
+.vscode/
+*.user
+*.suo
+*.log
+connection.json
+*.rtsp
+*.secrets
